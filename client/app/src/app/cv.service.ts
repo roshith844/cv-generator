@@ -18,4 +18,12 @@ baseUrl = 'http://localhost:3000/'
     return this.http.get<{ success: boolean; message: string; data: CvForm[];
        page: number; limit: number }>(`${this.baseUrl}cv?page=${page}&limit=${limit}`);
   }
+
+  editCv(id: string, body: CvForm): Observable<{ success: boolean; message: string }> {
+    return this.http.put<{ success: boolean; message: string }>(`${this.baseUrl}cv/update/${id}`, body);
+  }
+
+  getCvData(id: string,){
+    return this.http.get(`${this.baseUrl}cv/formatted/${id}`);
+  }
 }

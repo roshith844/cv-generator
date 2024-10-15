@@ -1,0 +1,44 @@
+@if(cvData){
+<!-- resume.component.html -->
+<div #content  class="resume">
+    <header class="resume-header">
+      <h1>{{ cvData.name }}</h1>
+      <p>{{ cvData.email }} | {{ cvData.phone }}</p>
+    </header>
+    
+    <section class="summary">
+      <h2>Summary</h2>
+      <p>{{ cvData.summary }}</p>
+    </section>
+    
+    <section class="work-experience">
+      <h2>Work Experience</h2>
+      <ul>
+        <li *ngFor="let job of cvData.work_experience">
+          <h3>{{ job.job_title }}</h3>
+          <p>{{ job.company }} | {{ job.years }}</p>
+        </li>
+      </ul>
+    </section>
+  
+    <section class="education">
+      <h2>Education</h2>
+      <ul>
+        <li *ngFor="let edu of cvData.education">
+          <h3>{{ edu.degree }}</h3>
+          <p>{{ edu.institution }} | {{ edu.years }}</p>
+        </li>
+      </ul>
+    </section>
+  
+    <section class="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li *ngFor="let skill of cvData.skills">{{ skill }}</li>
+      </ul>
+    </section>
+  </div>
+  <button (click)="generatePDF()">Download PDF</button>
+}
+
+

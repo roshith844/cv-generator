@@ -1,160 +1,147 @@
-@if(showForm){
-<button (click)="close()">Close</button>
-<form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
-    <!-- Personal Information -->
-    <div formGroupName="personalInfo">
-        <h3>Personal Information</h3>
-        <label>
-            Name:
-            <input type="text" formControlName="name">
-            @if(personalInfo.get('name')?.touched && personalInfo.get('name')?.invalid){
-            @if(personalInfo.get('name')?.errors?.['required']){
-                <span>Name is required</span>
-            }
-         
-            }
-
-        </label>
-        <label>
-            Email:
-            <input type="email" formControlName="email">
-            @if(personalInfo.get('email')?.touched && personalInfo.get('email')?.invalid){
-                @if(personalInfo.get('email')?.errors?.['required']){
-                    <span>email is required</span>
-                }
-                @if(personalInfo.get('email')?.errors?.['email']){
-                    <span>Please enter a valid email</span>
-                }
-              
-                }
-        </label>
-        <label>
-            Phone:
-            <input type="tel" formControlName="phone">
-            @if(personalInfo.get('phone')?.touched && personalInfo.get('phone')?.invalid){
-                @if(personalInfo.get('phone')?.errors?.['required']){
-                    <span>phone is required</span>
-                }
-           
-                }
-        </label>
-        <label>
-            Professional Summary:
-            <textarea formControlName="summary"></textarea>
-
-        </label>
-    </div>
-
-    <!-- Work Experience -->
-    <div formArrayName="workExperience">
-        <h3>Work Experience</h3>
-        <button type="button" (click)="addWorkExperience()">Add Work Experience</button>
-        @for(work of workExperience.controls;track i; let i = $index){
-        <div [formGroupName]="i">
-            <label>
-                Job Title:
-                <input type="text" formControlName="jobTitle">
-                @if(workExperience.at(i).get('jobTitle')?.touched && workExperience.at(i).get('jobTitle')?.invalid){
-                    @if(workExperience.at(i).get('jobTitle')?.errors?.['required']){
-                        <span>feild is required</span>
+@if(showForm) {
+    <form [formGroup]="cvForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded shadow-md">
+        <button (click)="close()" class="mb-4 px-4 py-2 text-white bg-red-600 rounded hover:bg-red-700">Close</button>
+        <!-- Personal Information -->
+        <div formGroupName="personalInfo" class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Personal Information</h3>
+            <label class="block mb-4">
+                Name:
+                <input type="text" formControlName="name" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                @if(personalInfo.get('name')?.touched && personalInfo.get('name')?.invalid) {
+                    @if(personalInfo.get('name')?.errors?.['required']) {
+                        <span class="text-red-500">Name is required</span>
                     }
-               
-                    }
+                }
             </label>
-            <label>
-                Company:
-                <input type="text" formControlName="company">
-                @if(workExperience.at(i).get('company')?.touched && workExperience.at(i).get('company')?.invalid){
-                    @if(workExperience.at(i).get('company')?.errors?.['required']){
-                        <span>feild is required</span>
+            <label class="block mb-4">
+                Email:
+                <input type="email" formControlName="email" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                @if(personalInfo.get('email')?.touched && personalInfo.get('email')?.invalid) {
+                    @if(personalInfo.get('email')?.errors?.['required']) {
+                        <span class="text-red-500">Email is required</span>
                     }
-               
+                    @if(personalInfo.get('email')?.errors?.['email']) {
+                        <span class="text-red-500">Please enter a valid email</span>
                     }
+                }
             </label>
-            <label>
-                Years:
-                <input type="text" formControlName="years">
-                @if(workExperience.at(i).get('years')?.touched && workExperience.at(i).get('years')?.invalid){
-                    @if(workExperience.at(i).get('years')?.errors?.['required']){
-                        <span>feild is required</span>
+            <label class="block mb-4">
+                Phone:
+                <input type="tel" formControlName="phone" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                @if(personalInfo.get('phone')?.touched && personalInfo.get('phone')?.invalid) {
+                    @if(personalInfo.get('phone')?.errors?.['required']) {
+                        <span class="text-red-500">Phone is required</span>
                     }
-                    }
+                }
             </label>
-            @if(education.controls.length > 1){
-            <button type="button" (click)="removeWorkExperience(i)">Remove</button>
+            <label class="block mb-4">
+                Professional Summary:
+                <textarea formControlName="summary" class="mt-1 block w-full border border-gray-300 rounded p-2"></textarea>
+            </label>
+        </div>
+
+        <!-- Work Experience -->
+        <div formArrayName="workExperience" class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Work Experience</h3>
+            <button type="button" (click)="addWorkExperience()" class="mb-4 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Add Work Experience</button>
+            @for(work of workExperience.controls; track i; let i = $index) {
+                <div [formGroupName]="i" class="border p-4 mb-4 rounded shadow-sm">
+                    <label class="block mb-2">
+                        Job Title:
+                        <input type="text" formControlName="jobTitle" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(workExperience.at(i).get('jobTitle')?.touched && workExperience.at(i).get('jobTitle')?.invalid) {
+                            @if(workExperience.at(i).get('jobTitle')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    <label class="block mb-2">
+                        Company:
+                        <input type="text" formControlName="company" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(workExperience.at(i).get('company')?.touched && workExperience.at(i).get('company')?.invalid) {
+                            @if(workExperience.at(i).get('company')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    <label class="block mb-2">
+                        Years:
+                        <input type="text" formControlName="years" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(workExperience.at(i).get('years')?.touched && workExperience.at(i).get('years')?.invalid) {
+                            @if(workExperience.at(i).get('years')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    @if(workExperience.controls.length > 1) {
+                        <button type="button" (click)="removeWorkExperience(i)" class="mt-2 px-2 py-1 text-white bg-red-600 rounded hover:bg-red-700">Remove</button>
+                    }
+                </div>
             }
         </div>
 
-        }
-
-    </div>
-
-    <!-- Education -->
-    <div formArrayName="education">
-        <h3>Education</h3>
-        <button type="button" (click)="addEducation()">Add Education</button>
-        @for(edu of education.controls;track i; let i = $index){
-        <div [formGroupName]="i">
-            <label>
-                Degree:
-                <input type="text" formControlName="degree">
-                @if(education.at(i).get('degree')?.touched && education.at(i).get('degree')?.invalid){
-                    @if(education.at(i).get('degree')?.errors?.['required']){
-                        <span>feild is required</span>
+        <!-- Education -->
+        <div formArrayName="education" class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Education</h3>
+            <button type="button" (click)="addEducation()" class="mb-4 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Add Education</button>
+            @for(edu of education.controls; track i; let i = $index) {
+                <div [formGroupName]="i" class="border p-4 mb-4 rounded shadow-sm">
+                    <label class="block mb-2">
+                        Degree:
+                        <input type="text" formControlName="degree" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(education.at(i).get('degree')?.touched && education.at(i).get('degree')?.invalid) {
+                            @if(education.at(i).get('degree')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    <label class="block mb-2">
+                        Institution:
+                        <input type="text" formControlName="institution" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(education.at(i).get('institution')?.touched && education.at(i).get('institution')?.invalid) {
+                            @if(education.at(i).get('institution')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    <label class="block mb-2">
+                        Years:
+                        <input type="text" formControlName="years" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(education.at(i).get('years')?.touched && education.at(i).get('years')?.invalid) {
+                            @if(education.at(i).get('years')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    @if(education.controls.length > 1) {
+                        <button type="button" (click)="removeEducation(i)" class="mt-2 px-2 py-1 text-white bg-red-600 rounded hover:bg-red-700">Remove</button>
                     }
-                    }
-            </label>
-            <label>
-                Institution:
-                <input type="text" formControlName="institution">
-                @if(education.at(i).get('institution')?.touched && education.at(i).get('institution')?.invalid){
-                    @if(education.at(i).get('institution')?.errors?.['required']){
-                        <span>feild is required</span>
-                    }
-                    }
-            </label>
-            <label>
-                Years:
-                <input type="text" formControlName="years">
-                @if(education.at(i).get('years')?.touched && education.at(i).get('years')?.invalid){
-                    @if(education.at(i).get('years')?.errors?.['required']){
-                        <span>feild is required</span>
-                    }
-                    }
-            </label>
-            @if(education.controls.length > 1){
-            <button type="button" (click)="removeEducation(i)">Remove</button>
-
-            }
-
-
-        </div>
-
-        }
-
-    </div>
-
-    <!-- Skills -->
-    <div formArrayName="skills">
-        <h3>Skills</h3>
-        <button type="button" (click)="addSkill()">Add Skill</button>
-        @for(skill of skills.controls; track i; let i = $index){
-        <div [formGroupName]="i">
-            <label>
-                Skillset:
-                <input type="text" formControlName="skill">
-                @if(skills.at(i).get('skill')?.touched && skills.at(i).get('skill')?.invalid){
-                    @if(skills.at(i).get('skill')?.errors?.['required']){
-                        <span>feild is required</span>
-                    }
-                    }
-            </label>
-            @if(skills.controls.length > 1){
-            <button type="button" (click)="removeSkill(i)">Remove</button>
+                </div>
             }
         </div>
-        }
-    </div>
-    <button type="submit">Submit</button>
-</form>
+
+        <!-- Skills -->
+        <div formArrayName="skills" class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Skills</h3>
+            <button type="button" (click)="addSkill()" class="mb-4 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Add Skill</button>
+            @for(skill of skills.controls; track i; let i = $index) {
+                <div [formGroupName]="i" class="border p-4 mb-4 rounded shadow-sm">
+                    <label class="block mb-2">
+                        Skillset:
+                        <input type="text" formControlName="skill" class="mt-1 block w-full border border-gray-300 rounded p-2">
+                        @if(skills.at(i).get('skill')?.touched && skills.at(i).get('skill')?.invalid) {
+                            @if(skills.at(i).get('skill')?.errors?.['required']) {
+                                <span class="text-red-500">Field is required</span>
+                            }
+                        }
+                    </label>
+                    @if(skills.controls.length > 1) {
+                        <button type="button" (click)="removeSkill(i)" class="mt-2 px-2 py-1 text-white bg-red-600 rounded hover:bg-red-700">Remove</button>
+                    }
+                </div>
+            }
+        </div>
+        
+        <button type="submit" class="mt-4 px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700">Submit</button>
+    </form>
 }

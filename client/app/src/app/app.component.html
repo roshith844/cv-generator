@@ -1,25 +1,2 @@
-<button (click)="showCreateCvForm()">create new CV</button>
-<app-form [(edit)]="edit" [(showForm)]="showForm"></app-form>
-<table class="min-w-full border-collapse border border-gray-300">
-  <thead>
-    <tr>
-      <th class="border border-gray-300 px-4 py-2">ID</th>
-      <th class="border border-gray-300 px-4 py-2">Name</th>
-      <th class="border border-gray-300 px-4 py-2">Email</th>
-      <th class="border border-gray-300 px-4 py-2">Date Added</th>
-      <th class="border border-gray-300 px-4 py-2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cv of cvData">
-      <td class="border border-gray-300 px-4 py-2">{{ cv.id }}</td>
-      <td class="border border-gray-300 px-4 py-2">{{ cv.name }}</td>
-      <td class="border border-gray-300 px-4 py-2">{{ cv.email }}</td>
-      <td class="border border-gray-300 px-4 py-2">{{ cv.date_added | date:'short' }}</td>
-      <td class="border border-gray-300 px-4 py-2">
-        <button (click)="editCV(cv.id)" class="bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
-        <button (click)="generateCV(cv.id)" class="bg-green-500 text-white px-4 py-2 rounded">Generate CV</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<router-outlet></router-outlet>
+
